@@ -1,0 +1,44 @@
+{
+    "name": "wedevelopnl/silverstripe-elemental-widget-userforms",
+    "description": "Re-usable user form widgets for silverstripe-elemental",
+    "keywords": [
+        "userforms",
+        "widget",
+        "silverstripe",
+        "elemental"
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/wedevelopnl/silverstripe-elemental-widget"
+        }
+    ],
+    "type": "silverstripe-vendormodule",
+    "require": {
+        "php": "8.1.*",
+        "silverstripe/framework": "^4.11",
+        "silverstripe/cms": "^4.11",
+        "silverstripe/userforms": "^5.14",
+        "unclecheese/display-logic": "^2.0",
+        "gorriecoe/silverstripe-linkfield": "^1.0",
+        "wedevelopnl/silverstripe-elemental-widget": "1.0.0-rc.1",
+        "symbiote/silverstripe-multivaluefield": "^5.3"
+    },
+    "extra": {
+        "installer-name": "silverstripe-elemental-widget-userforms",
+        "expose": [
+            "images"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "WeDevelop\\ElementalWidget\\UserForms\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": false,
+            "silverstripe/vendor-plugin": false
+        }
+    }
+}

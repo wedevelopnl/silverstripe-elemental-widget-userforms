@@ -1,0 +1,9 @@
+---
+Name: userformwidgetroutes
+After:
+    - '#rootroutes'
+    - '#coreroutes'
+---
+SilverStripe\Control\Director:
+    rules:
+        'element-user-form-controller//$Action/$ID/$Name': 'WeDevelop\ElementalWidget\UserForm\Controller\UserFormWidgetController'
