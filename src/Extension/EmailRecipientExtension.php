@@ -11,7 +11,10 @@ use Symbiote\MultiValueField\ORM\FieldType\MultiValueField;
 
 class EmailRecipientExtension extends DataExtension
 {
-    /** @config */
+    /**
+     * @var array<string, string>
+     * @config
+     */
     private static array $db = [
         'PageRules' => MultiValueField::class,
     ];

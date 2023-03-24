@@ -23,7 +23,10 @@ class UserFormWidgetController extends UserDefinedFormController
     /** @config */
     private static string $url_segment = 'element-user-form-controller';
 
-    /** @config */
+    /**
+     * @var array<string>
+     * @config
+     */
     private static array $allowed_actions = [
         'Form',
     ];

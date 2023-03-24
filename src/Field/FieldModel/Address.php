@@ -6,24 +6,13 @@ namespace WeDevelop\ElementalWidget\UserForm\Field\FieldModel;
 
 final class Address
 {
-    private string $zipCode;
-    private string $houseNumber;
-    private ?string $houseNumberAddition;
-    private string $street;
-    private string $city;
-
     public function __construct(
-        string $zipCode,
-        string $houseNumber,
-        ?string $houseNumberAddition,
-        string $street,
-        string $city
+        private readonly string $zipCode,
+        private readonly string $houseNumber,
+        private readonly ?string $houseNumberAddition,
+        private readonly string $street,
+        private readonly string $city
     ) {
-        $this->zipCode = $zipCode;
-        $this->houseNumber = $houseNumber;
-        $this->houseNumberAddition = $houseNumberAddition;
-        $this->street = $street;
-        $this->city = $city;
     }
 
     public function getZipCode(): string

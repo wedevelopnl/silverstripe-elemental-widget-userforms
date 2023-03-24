@@ -22,7 +22,10 @@ use WeDevelop\ElementalWidget\UserForm\Widget\UserFormWidget;
  */
 class SubmissionCountExtension extends DataExtension
 {
-    /** @config */
+    /**
+     * @var array<string, string>
+     * @config
+     */
     private static array $db = [
         'SubmissionsCountDay' => 'Int',
         'SubmissionsCountWeek' => 'Int',
@@ -30,7 +33,7 @@ class SubmissionCountExtension extends DataExtension
         'SubmissionsCountTotal' => 'Int',
     ];
 
-    public function updateCMSFields(FieldList $fields): FieldList
+    public function updateCMSFields(FieldList $fields): void
     {
         $fields->removeByName([
             'SubmissionsCountDay',
@@ -45,14 +48,10 @@ class SubmissionCountExtension extends DataExtension
             ReadonlyField::create('SubmissionsCountMonth', 'Submissions this month')->setDescription('Number of submissions that occurred this month'),
             ReadonlyField::create('SubmissionsCountTotal', 'Total submissions')->setDescription('Total number of submissions'),
         ]);
-
-        return $fields;
     }
 
     /**
      * Returns true if the submission limit for this form is reached
-     *
-     * @return boolean
      */
     public function LimitReached(): bool
     {
