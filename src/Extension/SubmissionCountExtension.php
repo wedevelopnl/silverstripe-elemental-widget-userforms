@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WeDevelop\ElementalWidget\UserForm\Extension;
 
 use SilverStripe\Forms\ReadonlyField;
@@ -67,9 +69,9 @@ class SubmissionCountExtension extends DataExtension
         }
 
         return $this->owner->EnableSubmissionsLimit && (
-                $this->owner->SubmissionsCountDay >= $this->owner->SubmissionsLimitDay ||
+            $this->owner->SubmissionsCountDay >= $this->owner->SubmissionsLimitDay ||
                 $this->owner->SubmissionsCountWeek >= $this->owner->SubmissionsLimitWeek ||
                 $this->owner->SubmissionsCountMonth >= $this->owner->SubmissionsLimitMonth
-            );
+        );
     }
 }

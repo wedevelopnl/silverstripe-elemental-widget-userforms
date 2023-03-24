@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WeDevelop\ElementalWidget\UserForm\Widget;
 
 use gorriecoe\Link\Models\Link;
