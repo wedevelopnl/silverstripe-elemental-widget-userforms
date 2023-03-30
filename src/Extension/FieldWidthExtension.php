@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WeDevelop\ElementalWidget\UserForm\Extension;
 
 use SilverStripe\Forms\DropdownField;
@@ -9,12 +11,15 @@ use SilverStripe\ORM\DataExtension;
 
 class FieldWidthExtension extends DataExtension
 {
-    /** @config */
+    /**
+     * @var array<string, string>
+     * @config
+     */
     private static array $db = [
         'FieldWidth' => 'Varchar(255)',
     ];
 
-    public function updateCMSFields(FieldList $fields): FieldList
+    public function updateCMSFields(FieldList $fields): void
     {
         $fields->dataFieldByName('Title')->setDescription('Use &lt;a href=&quot;page_url&quot;&gt;link_text&lt;/a&gt; to add a link to the label');
 

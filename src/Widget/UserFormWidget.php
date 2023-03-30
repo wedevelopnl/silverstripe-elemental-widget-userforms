@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WeDevelop\ElementalWidget\UserForm\Widget;
 
 use gorriecoe\Link\Models\Link;
@@ -34,7 +36,10 @@ class UserFormWidget extends Widget
     /** @config */
     private static string $icon = 'font-icon-block-form';
 
-    /** @config */
+    /**
+     * @var array<string, string>
+     * @config
+     */
     private static array $has_one = [
         'SuccessPage' => Link::class,
     ];

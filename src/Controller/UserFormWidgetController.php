@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WeDevelop\ElementalWidget\UserForm\Controller;
 
 use gorriecoe\Link\Models\Link;
@@ -21,7 +23,10 @@ class UserFormWidgetController extends UserDefinedFormController
     /** @config */
     private static string $url_segment = 'element-user-form-controller';
 
-    /** @config */
+    /**
+     * @var array<string>
+     * @config
+     */
     private static array $allowed_actions = [
         'Form',
     ];

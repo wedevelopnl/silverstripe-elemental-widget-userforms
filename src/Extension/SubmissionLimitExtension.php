@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WeDevelop\ElementalWidget\UserForm\Extension;
 
 use SilverStripe\Forms\HeaderField;
@@ -22,7 +24,10 @@ use WeDevelop\ElementalWidget\UserForm\Widget\UserFormWidget;
  */
 class SubmissionLimitExtension extends DataExtension
 {
-    /** @config */
+    /**
+     * @var array<string, string>
+     * @config
+     */
     private static array $db = [
         'EnableSubmissionsLimit' => 'Boolean',
         'SubmissionsLimitDay' => 'Int',
@@ -35,7 +40,7 @@ class SubmissionLimitExtension extends DataExtension
         'SubmissionsLimitContent' => 'HTMLText',
     ];
 
-    public function updateCMSFields(FieldList $fields): FieldList
+    public function updateCMSFields(FieldList $fields): void
     {
         // Requires the counts of SubmissionCountExtension, this was split from the limit
         // since just tracking the submission counts could be interesting as-is.
@@ -44,7 +49,7 @@ class SubmissionLimitExtension extends DataExtension
                 HeaderField::create('Notice', 'Notice: Missing extensions SubmissionCountExtension'),
             ]);
 
-            return $fields;
+            return;
         }
 
         $fields->removeByName([
@@ -88,8 +93,6 @@ class SubmissionLimitExtension extends DataExtension
                 ->isChecked()
                 ->end(),
         ]);
-
-        return $fields;
     }
 
     public function updateFilteredEmailRecipients(&$recipients, $data): void
@@ -110,8 +113,6 @@ class SubmissionLimitExtension extends DataExtension
 
     /**
      * Returns true if the submission limit for this form is reached
-     *
-     * @return boolean
      */
     public function LimitReached(): bool
     {
@@ -132,9 +133,9 @@ class SubmissionLimitExtension extends DataExtension
         }
 
         return $this->owner->EnableSubmissionsLimit && (
-                $this->owner->SubmissionsCountDay >= $this->owner->SubmissionsLimitDay ||
+            $this->owner->SubmissionsCountDay >= $this->owner->SubmissionsLimitDay ||
                 $this->owner->SubmissionsCountWeek >= $this->owner->SubmissionsLimitWeek ||
                 $this->owner->SubmissionsCountMonth >= $this->owner->SubmissionsLimitMonth
-            );
+        );
     }
 }

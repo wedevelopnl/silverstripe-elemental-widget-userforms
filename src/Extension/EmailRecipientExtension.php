@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WeDevelop\ElementalWidget\UserForm\Extension;
 
 use SilverStripe\Forms\FieldList;
@@ -9,7 +11,10 @@ use Symbiote\MultiValueField\ORM\FieldType\MultiValueField;
 
 class EmailRecipientExtension extends DataExtension
 {
-    /** @config */
+    /**
+     * @var array<string, string>
+     * @config
+     */
     private static array $db = [
         'PageRules' => MultiValueField::class,
     ];
@@ -21,7 +26,8 @@ class EmailRecipientExtension extends DataExtension
             MultiValueTextField::create(
                 'PageRules',
                 'Page url rules'
-            )->setDescription('
+            )->setDescription(
+                '
                 Emails will only be sent to these recipients if the URL of the page the form is sent from contains
                 one of these specified values. If no values are specified then this field is ignored.'
             ),

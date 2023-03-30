@@ -21,8 +21,8 @@
         "silverstripe/userforms": "^5.14",
         "unclecheese/display-logic": "^2.0",
         "gorriecoe/silverstripe-linkfield": "^1.0",
-        "wedevelopnl/silverstripe-elemental-widget": "1.0.0-rc.1",
-        "symbiote/silverstripe-multivaluefield": "^5.3"
+        "symbiote/silverstripe-multivaluefield": "^5.3",
+        "wedevelopnl/silverstripe-elemental-widget": "^1@RC"
     },
     "extra": {
         "installer-name": "silverstripe-elemental-widget-userforms",
@@ -40,5 +40,8 @@
             "composer/installers": false,
             "silverstripe/vendor-plugin": false
         }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.4"
     }
 }
