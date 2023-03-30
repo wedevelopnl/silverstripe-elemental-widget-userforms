@@ -24,12 +24,6 @@
         "symbiote/silverstripe-multivaluefield": "^5.3",
         "wedevelopnl/silverstripe-elemental-widget": "^1@RC"
     },
-    "extra": {
-        "installer-name": "silverstripe-elemental-widget-userforms",
-        "expose": [
-            "images"
-        ]
-    },
     "autoload": {
         "psr-4": {
             "WeDevelop\\ElementalWidget\\UserForms\\": "src/"
