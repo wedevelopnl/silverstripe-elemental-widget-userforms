@@ -53,7 +53,7 @@ class EditableAddressField extends EditableFormField
                 ->addExtraClass('is-half address-is-zipcode')
                 ->setAttribute('placeholder', '1234AB')
                 ->setAttribute('minlength', 6)
-                ->setAttribute('maxlength', 6),
+                ->setAttribute('maxlength', 7),
             $numberField = NumericField::create($this->Name . '_number', 'Huisnummer')
                 ->addExtraClass('is-fourth address-is-housenumber')
                 ->setAttribute('placeholder', '10'),
