@@ -61,11 +61,9 @@ class EditableAddressField extends EditableFormField
                 ->addExtraClass('is-fourth address-is-extension')
                 ->setAttribute('placeholder', 'A'),
             $streetField = TextField::create($this->Name . '_street', 'Straat')
-                ->addExtraClass('is-half address-is-street')
-                ->setAttribute('readonly', 'true'),
+                ->addExtraClass('is-half address-is-street'),
             $cityField = TextField::create($this->Name . '_city', 'Plaats')
-                ->addExtraClass('is-half address-is-city')
-                ->setAttribute('readonly', 'true'),
+                ->addExtraClass('is-half address-is-city'),
         ])
             ->setName($this->Name)
             ->addExtraClass('address-autocomplete-wrapper')
