@@ -9,6 +9,8 @@ use SilverStripe\Forms\FormField;
 use SilverStripe\Forms\CompositeField;
 use SilverStripe\Forms\NumericField;
 use SilverStripe\Forms\TextField;
+use SilverStripe\ORM\FieldType\DBField;
+use SilverStripe\ORM\FieldType\DBVarchar;
 use SilverStripe\UserForms\Model\EditableFormField;
 use WeDevelop\ElementalWidget\UserForm\Field\FieldModel\Address;
 
@@ -71,13 +73,11 @@ class EditableAddressField extends EditableFormField
 
         $this->doUpdateFormField($field);
 
-        $errorMessage = $this->getErrorMessage()->HTML();
-
         foreach ([$zipcodeField, $numberField, $streetField, $cityField] as $f) {
             $f->addExtraClass('requiredField');
             $f->setAttribute('required', 'required');
             $f->setAttribute('data-rule-required', 'true');
-            $f->setAttribute('data-msg-required', $errorMessage);
+            $f->setAttribute('data-msg-required', $this->getErrorMessage($f)->HTML());
         }
 
         return $field;
@@ -116,5 +116,20 @@ class EditableAddressField extends EditableFormField
         }
 
         return "{$address->getStreet()} {$address->getHouseNumber()} {$address->getHouseNumberAddition()}, {$address->getZipCode()} {$address->getCity()}";
+    }
+
+    public function getErrorMessage(?FormField $field = null): DBVarchar
+    {
+        if (empty($field)) {
+            return parent::getErrorMessage();
+        }
+
+        $title = strip_tags("'". ($field->title ? $field->title : $this->Name) . "'");
+        $standard = _t(parent::class . '.FIELDISREQUIRED', '{name} is required', ['name' => $title]);
+
+        // only use CustomErrorMessage if it has a non empty value
+        $errorMessage = (!empty($this->CustomErrorMessage)) ? $this->CustomErrorMessage : $standard;
+
+        return DBField::create_field('Varchar', $errorMessage);
     }
 }
