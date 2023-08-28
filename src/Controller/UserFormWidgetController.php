@@ -31,11 +31,17 @@ class UserFormWidgetController extends UserDefinedFormController
         'Form',
     ];
 
-    private ?UserFormWidget $widget;
-    private ?ElementWidget $element;
+    private static array $url_handlers = [
+        '$WidgetID/$ElementID/Form' => 'Form',
+    ];
+
+    private ?UserFormWidget $widget = null;
+    private ?ElementWidget $element = null;
 
     public function __construct($dataRecord = null)
     {
+        $this->widget = $dataRecord;
+
         Requirements::javascript('//code.jquery.com/jquery-3.6.0.min.js');
         Requirements::javascript(
             'silverstripe/userforms:client/dist/js/jquery-validation/jquery.validate.min.js'
@@ -45,23 +51,40 @@ class UserFormWidgetController extends UserDefinedFormController
         Requirements::javascript('silverstripe/userforms:client/dist/js/userforms.js');
 
         if (array_key_exists('WidgetID', $_POST)) {
-            $dataRecord = UserFormWidget::get()->byID($_POST['WidgetID']);
+            $this->widget = UserFormWidget::get()->byID($_POST['WidgetID']);
         }
-
-        $this->widget = $dataRecord;
 
         if (array_key_exists('ElementID', $_POST)) {
             $this->element = ElementWidget::get()->byID($_POST['ElementID']);
         } else {
-            $this->element = $this->widget->getElement();
+            $this->element = $this->widget?->getElement();
         }
 
-        parent::__construct($dataRecord);
+        if (!$this->widget) {
+            $this->setWidgetAndElementFromUrl($_SERVER['REQUEST_URI']);
+        }
+
+        parent::__construct($this->widget);
+    }
+
+    private function setWidgetAndElementFromUrl(string $url): void
+    {
+        $requestParts = explode('/', $url);
+        if (is_int($urlSegmentIndex = array_search(self::$url_segment, $requestParts))) {
+            $widgetID = $requestParts[$urlSegmentIndex+1];
+            $elementID = $requestParts[$widgetID+1];
+            $this->widget = UserFormWidget::get()->byID($widgetID);
+            $this->element = ElementWidget::get()->byID($elementID);
+        }
     }
 
     public function Link($action = null)
     {
-        return Controller::join_links(Director::baseURL(), self::$url_segment, $action);
+        if (!$this->widget || !$this->element) {
+            $this->setWidgetAndElementFromUrl($this->getRequest()->getURL());
+        }
+
+        return Controller::join_links(Director::baseURL(), self::$url_segment, $this->widget->ID, $this->element->ID, $action);
     }
 
     public function Form()
@@ -71,6 +94,10 @@ class UserFormWidgetController extends UserDefinedFormController
         /** @var SiteTree $page */
         $page = $this->element->getPage();
         $form->Fields()->push(HiddenField::create('_PageUrl', '_PageUrl', $page->Link()));
+
+        if (!$this->widget) {
+            $this->widget =  UserFormWidget::get()->byID($this->getRequest()->param('WidgetID'));
+        }
 
         if ($this->widget) {
             $form->Fields()->push(HiddenField::create('WidgetID', 'WidgetID', $this->widget->ID));
