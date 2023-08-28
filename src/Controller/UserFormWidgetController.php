@@ -32,7 +32,7 @@ class UserFormWidgetController extends UserDefinedFormController
     ];
 
     private static array $url_handlers = [
-        '$WidgetId/$ElementID/Form' => 'Form',
+        '$WidgetID/$ElementID/Form' => 'Form',
     ];
 
     private ?UserFormWidget $widget = null;
@@ -71,10 +71,10 @@ class UserFormWidgetController extends UserDefinedFormController
     {
         $requestParts = explode('/', $url);
         if (is_int($urlSegmentIndex = array_search(self::$url_segment, $requestParts))) {
-            $widgetId = $requestParts[$urlSegmentIndex+1];
-            $elementId = $requestParts[$widgetId+1];
-            $this->widget = UserFormWidget::get()->byID($widgetId);
-            $this->element = ElementWidget::get()->byID($elementId);
+            $widgetID = $requestParts[$urlSegmentIndex+1];
+            $elementID = $requestParts[$widgetID+1];
+            $this->widget = UserFormWidget::get()->byID($widgetID);
+            $this->element = ElementWidget::get()->byID($elementID);
         }
     }
 
@@ -83,7 +83,7 @@ class UserFormWidgetController extends UserDefinedFormController
         if (!$this->widget || !$this->element) {
             $this->setWidgetAndElementFromUrl($this->getRequest()->getURL());
         }
-        
+
         return Controller::join_links(Director::baseURL(), self::$url_segment, $this->widget->ID, $this->element->ID, $action);
     }
 
