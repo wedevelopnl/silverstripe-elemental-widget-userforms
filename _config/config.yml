@@ -1,0 +1,6 @@
+---
+Name: elementalwidgetuserforms
+---
+SilverStripe\UserForms\Model\EditableFormField\EditableCheckbox:
+  extensions:
+    - WeDevelop\ElementalWidget\UserForm\Extension\EditableCheckboxExtension
