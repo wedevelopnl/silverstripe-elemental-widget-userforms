@@ -31,3 +31,22 @@ We advise to use [Docker](https://docker.com)/[Docker compose](https://docs.dock
 We also included a [Makefile](https://www.gnu.org/software/make/) to simplify some commands
 
 Our development container contains some built-in tools like `PHPCSFixer`.
+
+### Cypress spec
+This module includes some cypress specs for e2e testing with the module. The specs can be found in `dev/cypress`.
+
+These specs are mainly written to validate the module is in working order inside our own testing suite but they
+might be usable for other scenarios aswell.
+
+The specs assume that our cypress support modules are installed
+* https://github.com/wedevelopnl/silverstripe-cypress
+* https://github.com/wedevelopnl/silverstripe-cypress-support
+and that they are ran from a test suite that has a fully functional silverstripe site.
+
+In order to include these specs in your test run simply load the specs in your `cypress.config.js`
+
+```
+module.exports = defineConfig({
+    specPattern: [
+      'vendor/wedevelopnl/silverstripe-elemental-widget-userforms/dev/cypres/e2e/*.cy.js
+```
