@@ -52,9 +52,14 @@ class EditableCheckboxExtension extends DataExtension
 
     public function getParsedTitle(): string
     {
+        if (!$this->owner->Title) {
+            return '';
+        }
+
         if (!$this->owner->TitleIsLink) {
             return $this->owner->Title;
         }
+
         /** @var Link $linkObject */
         $linkObject =  $this->owner->Link;
         if (is_object($linkObject)) {
