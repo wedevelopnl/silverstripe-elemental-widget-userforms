@@ -4,23 +4,26 @@ declare(strict_types=1);
 
 namespace WeDevelop\ElementalWidget\UserForm\Field\FieldModel;
 
+/**
+ * @phpstan-type AddressArray array{zipCode: ?string, houseNumber: ?int, houseNumberAddition: ?string, street: ?string, city: ?string}
+ */
 final class Address
 {
     public function __construct(
-        private readonly string $zipCode,
-        private readonly string $houseNumber,
+        private readonly ?string $zipCode,
+        private readonly ?int $houseNumber,
         private readonly ?string $houseNumberAddition,
-        private readonly string $street,
-        private readonly string $city
+        private readonly ?string $street,
+        private readonly ?string $city
     ) {
     }
 
-    public function getZipCode(): string
+    public function getZipCode(): ?string
     {
         return $this->zipCode;
     }
 
-    public function getHouseNumber(): string
+    public function getHouseNumber(): ?int
     {
         return $this->houseNumber;
     }
@@ -30,12 +33,12 @@ final class Address
         return $this->houseNumberAddition;
     }
 
-    public function getStreet(): string
+    public function getStreet(): ?string
     {
         return $this->street;
     }
 
-    public function getCity(): string
+    public function getCity(): ?string
     {
         return $this->city;
     }
