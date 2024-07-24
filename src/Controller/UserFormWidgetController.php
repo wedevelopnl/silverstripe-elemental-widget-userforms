@@ -84,16 +84,12 @@ class UserFormWidgetController extends UserDefinedFormController
             $this->setWidgetAndElementFromUrl($this->getRequest()->getURL());
         }
 
-        return Controller::join_links(Director::baseURL(), self::$url_segment, $this->widget->ID, $this->element->ID, $action);
+        return Controller::join_links(Director::baseURL(), self::$url_segment, $this->widget->ID, $this->element?->ID ?: 0, $action);
     }
 
     public function Form()
     {
         $form = parent::Form();
-
-        /** @var SiteTree $page */
-        $page = $this->element->getPage();
-        $form->Fields()->push(HiddenField::create('_PageUrl', '_PageUrl', $page->Link()));
 
         if (!$this->widget) {
             $this->widget =  UserFormWidget::get()->byID($this->getRequest()->param('WidgetID'));
@@ -104,6 +100,7 @@ class UserFormWidgetController extends UserDefinedFormController
         }
 
         if ($this->element) {
+            $form->Fields()->push(HiddenField::create('_PageUrl', '_PageUrl', $this->element->getPage()->Link()));
             $form->Fields()->push(HiddenField::create('ElementID', 'ElementID', $this->element->ID));
             $form->Actions()->dataFieldByName('action_process')->addExtraClass($this->element->SubmitButtonColor);
         }
@@ -155,7 +152,7 @@ class UserFormWidgetController extends UserDefinedFormController
         }
 
         /** @var ?Link $successLink */
-        $successLink = $this->element->Widget()->SuccessPage();
+        $successLink = $this->element ? $this->element->Widget()->SuccessPage() : $this->widget->SuccessPage();
 
         return $this->redirect($successLink->getLinkURL());
     }
