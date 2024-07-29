@@ -147,7 +147,7 @@ class EditableAddressField extends EditableFormField
     public function getAddressObject(array $data): Address
     {
         $zipcode = isset($data[$this->Name . '_zipcode']) ? $data[$this->Name . '_zipcode'] : null;
-        $number = isset($data[$this->Name . '_number']) ? $data[$this->Name . '_number'] : null;
+        $number = isset($data[$this->Name . '_number']) ? (int)$data[$this->Name . '_number'] : null;
         $numberAddition = isset($data[$this->Name . '_number_addition']) ? $data[$this->Name . '_number_addition'] : null;
         $street = isset($data[$this->Name . '_street']) ? $data[$this->Name . '_street'] : null;
         $city = isset($data[$this->Name . '_city']) ? $data[$this->Name . '_city'] : null;
