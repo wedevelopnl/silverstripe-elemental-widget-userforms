@@ -6,6 +6,7 @@ namespace WeDevelop\ElementalWidget\UserForm\Controller;
 
 use gorriecoe\Link\Models\Link;
 use SilverStripe\Core\ClassInfo;
+use SilverStripe\Versioned\Versioned;
 use WeDevelop\ElementalWidget\Element\ElementWidget;
 use WeDevelop\ElementalWidget\UserForm\Extension\SubmissionLimitExtension;
 use WeDevelop\ElementalWidget\UserForm\Widget\UserFormWidget;
@@ -84,7 +85,13 @@ class UserFormWidgetController extends UserDefinedFormController
             $this->setWidgetAndElementFromUrl($this->getRequest()->getURL());
         }
 
-        return Controller::join_links(Director::baseURL(), self::$url_segment, $this->widget->ID, $this->element?->ID ?: 0, $action);
+        $link = [Director::baseURL(), self::$url_segment, $this->widget->ID, $this->element?->ID ?: 0, $action];
+
+        if (Versioned::get_stage() === Versioned::DRAFT) {
+            $link[] = '?stage=' . Versioned::DRAFT;
+        }
+
+        return Controller::join_links(...$link);
     }
 
     public function Form()
@@ -154,6 +161,10 @@ class UserFormWidgetController extends UserDefinedFormController
         /** @var ?Link $successLink */
         $successLink = $this->element ? $this->element->Widget()->SuccessPage() : $this->widget->SuccessPage();
 
-        return $this->redirect($successLink->getLinkURL());
+        if ($successLink instanceof Link && $successLink->exists()) {
+            return $this->redirect($successLink->getLinkURL());
+        }
+
+        return $this->redirectBack();
     }
 }
