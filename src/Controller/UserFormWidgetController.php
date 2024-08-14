@@ -160,11 +160,10 @@ class UserFormWidgetController extends UserDefinedFormController
 
         /** @var ?Link $successLink */
         $successLink = $this->element ? $this->element->Widget()->SuccessPage() : $this->widget->SuccessPage();
+        $successLink = $successLink->getLinkURL();
 
-        if ($successLink instanceof Link && $successLink->exists()) {
-            return $this->redirect($successLink->getLinkURL());
-        }
+        $this->extend('updateSuccessLink', $successLink);
 
-        return $this->redirectBack();
+        return $this->redirect($successLink);
     }
 }
