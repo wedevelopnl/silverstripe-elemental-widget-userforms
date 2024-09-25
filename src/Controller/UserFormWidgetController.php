@@ -73,7 +73,7 @@ class UserFormWidgetController extends UserDefinedFormController
         $requestParts = explode('/', $url);
         if (is_int($urlSegmentIndex = array_search(self::$url_segment, $requestParts))) {
             $widgetID = $requestParts[$urlSegmentIndex+1];
-            $elementID = $requestParts[$widgetID+1];
+            $elementID = $requestParts[$urlSegmentIndex+2];
             $this->widget = UserFormWidget::get()->byID($widgetID);
             $this->element = ElementWidget::get()->byID($elementID);
         }
