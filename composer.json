@@ -11,18 +11,22 @@
         {
             "type": "vcs",
             "url": "https://github.com/wedevelopnl/silverstripe-elemental-widget"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/wedevelopnl/silverstripe-elemental"
         }
     ],
     "type": "silverstripe-vendormodule",
     "require": {
         "php": ">=8.1",
-        "silverstripe/framework": "^4.11 || ^5.0",
-        "silverstripe/cms": "^4.11 || ^5.0",
-        "silverstripe/userforms": "^5.14 || ^6.0",
+        "silverstripe/framework": "^5.0",
+        "silverstripe/cms": "^5.0",
+        "silverstripe/userforms": "^6.0",
         "unclecheese/display-logic": "^2.0 || ^3.0",
         "gorriecoe/silverstripe-linkfield": "^1.0",
         "symbiote/silverstripe-multivaluefield": "^5.3 || ^6.0",
-        "wedevelopnl/silverstripe-elemental-widget": "^1.0"
+        "wedevelopnl/silverstripe-elemental-widget": "dev-ss5.4-support"
     },
     "autoload": {
         "psr-4": {
